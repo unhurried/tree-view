@@ -1,25 +1,22 @@
 <template>
   <div id="app">
-    <Tree :doc="doc"/>
+    <TreeList :doc="doc"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import axios from 'axios';
-import yaml from 'js-yaml';
-import Tree from '@/components/Tree.vue';
+import marked from 'marked';
 
-@Component({
-  components: {
-    Tree,
-  },
-})
+@Component
 export default class App extends Vue {
-  private doc: object = {};
+  private doc: Element | null = null;
   public beforeCreate() {
-    axios.get('./tree.yaml').then((res) => {
-      this.doc = yaml.safeLoad(res.data);
+    axios.get('./tree.md').then((res) => {
+      const html = marked(res.data);
+      const parsedHtml = new DOMParser().parseFromString(html, 'text/html');
+      this.doc = parsedHtml.querySelector('html body ul');
     });
   }
 }

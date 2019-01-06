@@ -1,66 +1,50 @@
 import { expect } from 'chai';
-import { shallowMount } from '@vue/test-utils';
-import Tree from '@/components/Tree.vue';
+import { mount } from '@vue/test-utils';
+import Vue from 'vue';
 
-describe('Tree.vue', () => {
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlus, faMinus, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+library.add(faPlus, faMinus, faExternalLinkAlt);
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+import TreeList from '@/components/TreeList.vue';
+Vue.component('TreeList', TreeList);
+
+const html = `
+  <ul>
+    <li>one
+      <ul>
+        <li>one-one</li>
+      </ul>
+    </li>
+    <li>two</li>
+  </ul>
+`;
+const div = document.createElement('div');
+div.innerHTML = html;
+const doc = div.querySelector('div > ul');
+
+describe('TreeList.vue', () => {
   it('should render doc object into a list', () => {
-    const props = {
-      doc: [
-        {
-          name: 'one',
-          visible: true,
-          children: [
-            {
-              name: 'one-one',
-              visible: true,
-            },
-          ],
-        },
-        {
-          name: 'two',
-          visible: false,
-          children: [
-            {
-              name: 'two-one',
-              visible: true,
-            },
-          ],
-        },
-      ],
-    };
-    const wrapper = shallowMount(Tree, {
-      propsData: props,
+    const wrapper = mount(TreeList, {
+      propsData: { doc },
     });
 
-    expect(wrapper.findAll('ul > li').at(0).text()).to.equal('one');
-    expect(wrapper.findAll('ul > li').at(0).find(Tree).attributes().parentlevel).to.equal('0');
-    expect(wrapper.findAll('ul > li > span > font-awesome-icon').at(0).attributes().icon).to.equal('minus');
-    expect(wrapper.findAll('ul > li').at(1).text()).to.equal('two');
-    expect(wrapper.findAll('ul > li').at(1).find(Tree).exists()).to.equal(false);
-    expect(wrapper.findAll('ul > li > span > font-awesome-icon').at(1).attributes().icon).to.equal('plus');
+    expect(wrapper.findAll('ul.root > li > span').at(0).text()).to.equal('one');
+    expect(wrapper.findAll('ul.root > li > ul > li > span').at(0).text()).to.equal('one-one');
+    expect(wrapper.findAll('ul.root > li > span').at(1).text()).to.equal('two');
   });
 
   it('should change the visible state when clicked', () => {
-    const props = {
-      doc: [
-        {
-          name: 'one',
-          visible: true,
-          children: [
-            {
-              name: 'one-one',
-              visible: true,
-            },
-          ],
-        },
-      ],
-    };
-    const wrapper = shallowMount(Tree, {
-      propsData: props,
+    const wrapper = mount(TreeList, {
+      propsData: { doc },
     });
 
-    expect(wrapper.vm.$props.doc[0].visible).to.equal(true);
-    wrapper.findAll('ul > li > span').at(0).trigger('click');
-    expect(wrapper.vm.$props.doc[0].visible).to.equal(false);
+    expect(wrapper.findAll('ul.root > li > ul > li > span').length).to.equals(1);
+    expect(wrapper.findAll('ul.root > li > span > svg').at(0).attributes('data-icon')).to.equal('minus');
+    wrapper.findAll('ul.root > li > span').at(0).trigger('click');
+    expect(wrapper.findAll('ul.root > li > ul > li > span').length).to.equals(0);
+    expect(wrapper.findAll('ul.root > li > span > svg').at(0).attributes('data-icon')).to.equal('plus');
   });
 });
