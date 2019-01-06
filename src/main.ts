@@ -8,9 +8,12 @@ Vue.use(BootstrapVue);
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus, faMinus, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 library.add(faPlus, faMinus, faExternalLinkAlt);
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+import TreeList from '@/components/TreeList.vue';
+Vue.component('TreeList', TreeList);
 
 Vue.config.productionTip = false;
 
