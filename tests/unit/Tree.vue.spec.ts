@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { mount } from '@vue/test-utils';
 import Vue from 'vue';
 
@@ -31,9 +30,9 @@ describe('TreeList.vue', () => {
       propsData: { doc },
     });
 
-    expect(wrapper.findAll('ul.root > li > span').at(0).text()).to.equal('one');
-    expect(wrapper.findAll('ul.root > li > ul > li > span').at(0).text()).to.equal('one-one');
-    expect(wrapper.findAll('ul.root > li > span').at(1).text()).to.equal('two');
+    expect(wrapper.findAll('ul.root > li > span').at(0).text()).toBe('one');
+    expect(wrapper.findAll('ul.root > li > ul > li > span').at(0).text()).toBe('one-one');
+    expect(wrapper.findAll('ul.root > li > span').at(1).text()).toBe('two');
   });
 
   it('should change the visible state when clicked', () => {
@@ -41,10 +40,10 @@ describe('TreeList.vue', () => {
       propsData: { doc },
     });
 
-    expect(wrapper.findAll('ul.root > li > ul > li > span').length).to.equals(1);
-    expect(wrapper.findAll('ul.root > li > span > svg').at(0).attributes('data-icon')).to.equal('minus');
+    expect(wrapper.findAll('ul.root > li > ul > li > span').length).toBe(1);
+    expect(wrapper.findAll('ul.root > li > span > svg').at(0).attributes('data-icon')).toBe('minus');
     wrapper.findAll('ul.root > li > span').at(0).trigger('click');
-    expect(wrapper.findAll('ul.root > li > ul > li > span').length).to.equals(0);
-    expect(wrapper.findAll('ul.root > li > span > svg').at(0).attributes('data-icon')).to.equal('plus');
+    expect(wrapper.findAll('ul.root > li > ul > li > span').length).toBe(0);
+    expect(wrapper.findAll('ul.root > li > span > svg').at(0).attributes('data-icon')).toBe('plus');
   });
 });
