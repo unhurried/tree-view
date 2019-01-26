@@ -1,13 +1,14 @@
 # tree-view
 
-A sample Vue.js project that renders tree data structure in a yaml file into html.
+A sample Vue.js project that renders tree data structure in a markdown file into html.
 
 
 ## Libraries
 
 * [Vue.js](https://vuejs.org) + [Vue CLI 3](https://cli.vuejs.org/) + [TypeScript](https://www.typescriptlang.org/)
 * [Axios](https://github.com/axios/axios) (HTTP Client)
-* [Jasmine](https://jasmine.github.io/) + [Chai](https://www.chaijs.com/) (Unit Test)
+* [Jest](https://jestjs.io/) (Unit Test)
+  * [v0.1](https://github.com/unhurried/tree-view/releases/tag/v0.1): [Jasmine](https://jasmine.github.io/) + [Chai](https://www.chaijs.com/)
 * [Cypress](https://www.cypress.io/) (E2E Test)
 
 ##  How to start development

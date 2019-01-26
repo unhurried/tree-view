@@ -3,30 +3,35 @@
     <span @click="toggleFolded()">
       <font-awesome-icon icon="minus" v-if="showChildren" />
       <font-awesome-icon icon="plus" v-else />
-      {{ text }}
-      <a v-if="href" :href="href" target="_blank">
-        <font-awesome-icon icon="external-link-alt" />
-      </a>
+      <TreeListText v-for="textNode in TextNodes" :doc="textNode" :key="textNode._uid" />
     </span>
-    <TreeList v-if="showChildren" :doc="childList" :level="level+1"/>
+    <TreeList v-if="showChildren" :doc="childList" :level="level+1" />
   </li>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import TreeListText from '@/components/TreeListText.vue';
 
-@Component({ name: 'TreeElement' })
-export default class TreeElement extends Vue {
+@Component({
+  name: 'TreeListItem',
+  components: {
+    TreeListText,
+  },
+})
+export default class TreeListItem extends Vue {
   @Prop() private doc!: Element;
   @Prop() private level!: number;
   private folded: boolean = true;
-  get text(): string | null {
-    return this.doc.childNodes[0].textContent;
-  }
-  get href(): string | null {
-    const node = this.doc.querySelector(':scope > a');
-    if (node === null) { return null; }
-    return node.getAttribute('href');
+  get TextNodes(): Node[] {
+    const list: Node[] = [];
+    Array.prototype.map.call(this.doc.childNodes, (node: Node) => {
+      if (node.nodeName !== 'UL') {
+        list.push(node);
+      }
+      return {};
+    });
+    return list;
   }
   get childList(): Element | null {
     return this.doc.querySelector('ul');
