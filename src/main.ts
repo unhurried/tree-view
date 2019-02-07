@@ -4,5 +4,7 @@ import App from './App.vue';
 Vue.config.productionTip = false;
 
 new Vue({
-  render: (h) => h(App),
+  render: (h) => {
+    return h(App, { props: { path: './tree.md' }});
+  },
 }).$mount('#app');

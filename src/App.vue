@@ -25,9 +25,10 @@ Vue.component('TreeList', TreeList);
 
 @Component
 export default class App extends Vue {
+  @Prop({ default: 'tree.md' }) private path!: string;
   private doc: Element | null = null;
-  public beforeCreate() {
-    axios.get('./tree.md').then((res) => {
+  public created() {
+    axios.get(this.path).then((res) => {
       const html = marked(res.data);
       const parsedHtml = new DOMParser().parseFromString(html, 'text/html');
       this.doc = parsedHtml.querySelector('html body ul');
