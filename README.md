@@ -1,16 +1,22 @@
 # tree-view
 
-A sample Vue.js project that renders tree data structure in a markdown file into html.
+A Vue.js project that renders tree data structure in a markdown file into html.
 
-## Libraries
+## How to use as a library 
 
-* [Vue.js](https://vuejs.org) + [Vue CLI 3](https://cli.vuejs.org/) + [TypeScript](https://www.typescriptlang.org/)
-* [Axios](https://github.com/axios/axios) (HTTP Client)
-* [Jest](https://jestjs.io/) (Unit Test)
-  * [v0.1](https://github.com/unhurried/tree-view/releases/tag/v0.1): [Jasmine](https://jasmine.github.io/) + [Chai](https://www.chaijs.com/)
-* [Cypress](https://www.cypress.io/) (E2E Test)
+You can load tree-view as a library in your project through [jsdelivr.com](https://jsdelivr.com).
 
-##  How to start development
+* UMD
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.umd.js
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.umd.min.js
+* CommonJS
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.common.js
+* CSS
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.css
+
+Check usage in a demo application: https://unhurried.github.io/tree-view/demo/
+
+## How to start development
 
 ```shell
 # install dependencies
@@ -31,3 +37,11 @@ npm run build:app
 # build lib for production
 npm run build:lib
 ```
+
+## Library dependencies
+
+- [Vue.js](https://vuejs.org) + [Vue CLI 3](https://cli.vuejs.org/) + [TypeScript](https://www.typescriptlang.org/)
+- [Axios](https://github.com/axios/axios) (HTTP Client)
+- [Jest](https://jestjs.io/) (Unit Test)
+  - [v0.1](https://github.com/unhurried/tree-view/releases/tag/v0.1): [Jasmine](https://jasmine.github.io/) + [Chai](https://www.chaijs.com/)
+- [Cypress](https://www.cypress.io/) (E2E Test)
