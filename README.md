@@ -2,7 +2,6 @@
 
 A sample Vue.js project that renders tree data structure in a markdown file into html.
 
-
 ## Libraries
 
 * [Vue.js](https://vuejs.org) + [Vue CLI 3](https://cli.vuejs.org/) + [TypeScript](https://www.typescriptlang.org/)
@@ -27,5 +26,8 @@ npm run test:e2e
 npm run serve
 
 # build app for production
-npm run build
+npm run build:app
+
+# build lib for production
+npm run build:lib
 ```
