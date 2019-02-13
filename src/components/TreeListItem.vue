@@ -1,11 +1,11 @@
 <template>
   <li>
     <span @click="toggleFolded()">
-      <font-awesome-icon icon="minus" v-if="showChildren" />
+      <font-awesome-icon icon="minus" v-if="isOpen" />
       <font-awesome-icon icon="plus" v-else />
       <TreeListText v-for="textNode in TextNodes" :doc="textNode" :key="textNode._uid" />
     </span>
-    <TreeList v-if="showChildren" :doc="childList" :level="level+1" />
+    <TreeList :class="{ invisible: !isOpen }" :doc="childList" :level="level+1" />
   </li>
 </template>
 
@@ -36,7 +36,7 @@ export default class TreeListItem extends Vue {
   get childList(): Element | null {
     return this.doc.querySelector('ul');
   }
-  get showChildren(): boolean {
+  get isOpen(): boolean {
     return this.childList === null || this.folded;
   }
   private toggleFolded(): void {
@@ -48,5 +48,8 @@ export default class TreeListItem extends Vue {
 <style scoped lang="scss">
 li span {
   cursor: pointer;
+}
+.invisible {
+  display: none
 }
 </style>
