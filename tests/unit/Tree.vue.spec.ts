@@ -43,7 +43,7 @@ describe('TreeList.vue', () => {
     expect(wrapper.findAll('ul.root > li > ul > li > span').length).toBe(1);
     expect(wrapper.findAll('ul.root > li > span > svg').at(0).attributes('data-icon')).toBe('minus');
     wrapper.findAll('ul.root > li > span').at(0).trigger('click');
-    expect(wrapper.findAll('ul.root > li > ul > li > span').length).toBe(0);
+    expect(wrapper.findAll('ul.root > li > ul').at(0).classes()).toContain('invisible');
     expect(wrapper.findAll('ul.root > li > span > svg').at(0).attributes('data-icon')).toBe('plus');
   });
 });
