@@ -48,6 +48,7 @@ export default class TreeListItem extends Vue {
 <style scoped lang="scss">
 li span {
   cursor: pointer;
+  user-select: none;
 }
 .invisible {
   display: none
