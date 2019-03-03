@@ -13,6 +13,9 @@ You can load tree-view as a library in your project through [jsdelivr.com](https
   * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.common.js
 * CSS
   * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.css
+* web Components
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/tree-view.js
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/tree-view.min.js
 
 Check usage in a demo application: https://unhurried.github.io/tree-view/demo/
 
