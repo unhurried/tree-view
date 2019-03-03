@@ -1,7 +1,7 @@
 <template>
   <span>
-    {{ text }}
-    <a v-if="href" :href="href" target="_blank">
+    {{ doc.text }}
+    <a v-if="doc.href" :href="doc.href" target="_blank">
       <font-awesome-icon icon="external-link-alt" />
     </a>
   </span>
@@ -9,17 +9,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { ListItem, ListText } from '@/lib/ListData';
 
 @Component({ name: 'TreeListText' })
 export default class TreeListText extends Vue {
-  @Prop() private doc!: Node;
-  get text(): string | null {
-    return this.doc.textContent;
-  }
-  get href(): string | null {
-    if (this.doc.nodeName !== 'A') { return null; }
-    return this.doc.childNodes[0].nodeValue;
-  }
+  @Prop() private doc!: ListText;
 }
 </script>
 

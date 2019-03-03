@@ -3,15 +3,16 @@
     <span @click="toggleFolded()">
       <font-awesome-icon icon="minus" v-if="isOpen" />
       <font-awesome-icon icon="plus" v-else />
-      <TreeListText v-for="textNode in TextNodes" :doc="textNode" :key="textNode._uid" />
+      <TreeListText v-for="item in doc.texts" :doc="item" :key="item._uid" />
     </span>
-    <TreeList :class="{ invisible: !isOpen }" :doc="childList" :level="level+1" />
+    <TreeList :class="{ invisible: !isOpen }" :doc="doc.children" :level="level+1" />
   </li>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import TreeListText from '@/components/TreeListText.vue';
+import { ListItem, ListText } from '@/lib/ListData';
 
 @Component({
   name: 'TreeListItem',
@@ -20,24 +21,11 @@ import TreeListText from '@/components/TreeListText.vue';
   },
 })
 export default class TreeListItem extends Vue {
-  @Prop() private doc!: Element;
+  @Prop() private doc!: ListItem;
   @Prop() private level!: number;
   private folded: boolean = true;
-  get TextNodes(): Node[] {
-    const list: Node[] = [];
-    Array.prototype.map.call(this.doc.childNodes, (node: Node) => {
-      if (node.nodeName !== 'UL') {
-        list.push(node);
-      }
-      return {};
-    });
-    return list;
-  }
-  get childList(): Element | null {
-    return this.doc.querySelector('ul');
-  }
   get isOpen(): boolean {
-    return this.childList === null || this.folded;
+    return this.doc.children.length === 0 || this.folded;
   }
   private toggleFolded(): void {
     this.folded = !this.folded;
