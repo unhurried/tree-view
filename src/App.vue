@@ -7,8 +7,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import axios from 'axios';
-import marked from 'marked';
 
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -26,6 +24,9 @@ import TreeList from '@/components/TreeList.vue';
 Vue.component('TreeList', TreeList);
 
 import ImportButton from '@/components/ImportButton.vue';
+import axios from 'axios';
+import MarkdownParser from '@/lib/MarkdownParser.ts';
+import { ListItem } from '@/lib/ListData';
 
 @Component({
   components: {
@@ -34,7 +35,7 @@ import ImportButton from '@/components/ImportButton.vue';
 })
 export default class App extends Vue {
   @Prop({ default: 'tree.md' }) private path!: string;
-  private doc: Element | null = null;
+  private doc: ListItem[] | null = null;
   private created() {
     axios.get(this.path).then((res) => {
       this.updateDoc(res.data);
@@ -44,9 +45,7 @@ export default class App extends Vue {
     this.updateDoc(content);
   }
   private updateDoc(newDoc: string) {
-    const html = marked(newDoc);
-    const parsedHtml = new DOMParser().parseFromString(html, 'text/html');
-    this.doc = parsedHtml.querySelector('html body ul');
+    this.doc = new MarkdownParser().parse(newDoc);
   }
 }
 </script>
