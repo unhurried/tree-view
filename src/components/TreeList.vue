@@ -1,9 +1,7 @@
 <template>
-  <ul :class="{ root: level === 0 }">
-    <draggable :list="doc">
-      <TreeListItem v-for="item in doc" :key="item._uid" :doc="item" :level="level"/>
-    </draggable>  
-  </ul>
+  <draggable tag="ul" class="dragArea" :list="doc" :group="{ name: 'g1' }" :class="{ root: level === 0 }">
+    <TreeListItem v-for="item in doc" :key="item._uid" :doc="item" :level="level"/>
+  </draggable>
 </template>
 
 <script lang="ts">
@@ -32,5 +30,8 @@ ul {
 ul.root {
   margin: 0;
   padding: 0;
+}
+.dragArea {
+  padding-bottom: 0.1em;
 }
 </style>
