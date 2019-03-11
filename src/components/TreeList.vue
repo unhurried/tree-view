@@ -8,7 +8,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import draggable from 'vuedraggable';
 import TreeListItem from '@/components/TreeListItem.vue';
-import { ListItem, ListText } from '@/lib/ListData';
+import { ListItem } from '@/lib/ListData';
 
 @Component({
   name: 'TreeList',

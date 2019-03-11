@@ -3,7 +3,7 @@
     <span @click="toggleFolded()">
       <font-awesome-icon icon="minus" v-if="isOpen" />
       <font-awesome-icon icon="plus" v-else />
-      <TreeListText v-for="item in doc.texts" :doc="item" :key="item._uid" />
+      <span class="text" v-html="text()" />
     </span>
     <TreeList :class="{ invisible: !isOpen }" :doc="doc.children" :level="level+1" />
   </li>
@@ -11,14 +11,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import TreeListText from '@/components/TreeListText.vue';
-import { ListItem, ListText } from '@/lib/ListData';
+import { ListItem } from '@/lib/ListData';
+import marked from 'marked';
 
 @Component({
   name: 'TreeListItem',
-  components: {
-    TreeListText,
-  },
 })
 export default class TreeListItem extends Vue {
   @Prop() private doc!: ListItem;
@@ -30,6 +27,14 @@ export default class TreeListItem extends Vue {
   private toggleFolded(): void {
     this.folded = !this.folded;
   }
+  private text(): string | null {
+    if (!this.doc.text) {
+      return null;
+    }
+    const text = marked(this.doc.text);
+    // Remove <p> and </p> tags from rendered text.
+    return text.substr(3, text.length - 8);
+  }
 }
 </script>
 
@@ -40,5 +45,8 @@ li span {
 }
 .invisible {
   display: none
+}
+.text {
+  padding-left: 0.4em;
 }
 </style>
