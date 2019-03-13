@@ -14,8 +14,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 Vue.use(BootstrapVue);
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlus, faMinus, faExternalLinkAlt, faFileImport } from '@fortawesome/free-solid-svg-icons';
-library.add(faPlus, faMinus, faExternalLinkAlt, faFileImport);
+import { faPlus, faMinus, faFileImport, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+library.add(faPlus, faMinus, faFileImport, faPlusCircle, faMinusCircle);
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

@@ -1,6 +1,4 @@
-import { ListText } from './ListText';
-
 export class ListItem {
-    public texts: ListText[] = new Array<ListText>();
+    public text: string | null = null;
     public children: ListItem[] =  new Array<ListItem>();
 }
