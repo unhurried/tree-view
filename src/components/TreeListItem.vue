@@ -9,8 +9,8 @@
       <input id="input" v-model="doc.text" v-else @blur="changeMode" @keyup.enter="onKeyEnter" >
     </span>
     <span class="menu" v-if="!editMode">
-      <font-awesome-icon class="icon" icon="plus-circle" @click="add" />
-      <font-awesome-icon class="icon" icon="minus-circle" @click="remove"/>
+      <font-awesome-icon class="icon" icon="plus-circle" @click="onPlusClick" />
+      <font-awesome-icon class="icon" icon="minus-circle" @click="onMinuxClick"/>
     </span>
     <TreeList :class="{ invisible: !isOpen }" :doc="doc.children" :level="level+1" />
   </li>
@@ -58,10 +58,10 @@ export default class TreeListItem extends Vue {
     // Remove <p> and </p> tags from rendered text.
     return text.substr(3, text.length - 8);
   }
-  private add(): void {
+  private onPlusClick(): void {
     this.$emit('add', this.doc);
   }
-  private remove(): void {
+  private onMinuxClick(): void {
     this.$emit('remove', this.doc);
   }
 }

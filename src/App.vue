@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <ImportButton class="float-right" @fileLoaded="onFileLoaded" />
+    <ImportExportButton class="float-right" :doc="doc" @fileLoaded="onFileLoaded" />
     <TreeList :doc="doc"/>
   </div>
 </template>
@@ -14,8 +14,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 Vue.use(BootstrapVue);
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlus, faMinus, faFileImport, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-library.add(faPlus, faMinus, faFileImport, faPlusCircle, faMinusCircle);
+import { faPlus, faMinus, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faFileImport, faFileExport } from '@fortawesome/free-solid-svg-icons';
+library.add(faPlus, faMinus, faFileImport, faFileExport, faPlusCircle, faMinusCircle);
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
@@ -23,14 +24,14 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 import TreeList from '@/components/TreeList.vue';
 Vue.component('TreeList', TreeList);
 
-import ImportButton from '@/components/ImportButton.vue';
+import ImportExportButton from '@/components/ImportExportButton.vue';
 import axios from 'axios';
 import MarkdownParser from '@/lib/MarkdownParser.ts';
 import { ListItem } from '@/lib/ListData';
 
 @Component({
   components: {
-    ImportButton,
+    ImportExportButton,
   },
 })
 export default class App extends Vue {
