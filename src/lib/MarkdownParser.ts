@@ -19,6 +19,9 @@ export default class MarkdownParser {
       return this.parseChildren(rootElement);
     }
   }
+  public convert(treeList: ListItem[]): string {
+    return this.convertItem(treeList);
+  }
 
   private parseChildren(doc: Element): ListItem[] {
     const list: ListItem[] = new Array<ListItem>();
@@ -32,8 +35,16 @@ export default class MarkdownParser {
     });
     return list;
   }
-
   private parseText(doc: Element): string | null {
     return doc.childNodes[0].textContent;
+  }
+
+  private convertItem(treeList: ListItem[], level: number = 0) {
+    let markdown: string = '';
+    treeList.forEach((treeItem: ListItem) => {
+      markdown += `${'\t'.repeat(level)}* ${treeItem.text}\n`;
+      markdown += this.convertItem(treeItem.children, level + 1);
+    });
+    return markdown;
   }
 }
