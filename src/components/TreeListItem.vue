@@ -5,8 +5,12 @@
       <font-awesome-icon icon="plus" v-else />
     </span>
     <span class="text">
-      <span v-html="text()" v-if="!editMode" @dblclick="changeMode" />
-      <input id="input" v-model="doc.text" v-else @blur="changeMode" @keyup.enter="onKeyEnter" >
+      <span v-if="!editMode" v-html="text" @dblclick="toggleMode" />
+      <input v-else id="input" v-model="doc.text" @blur="toggleMode" @keyup.enter="onKeyEnter" >
+    </span>
+    <span class="menu" v-if="!editMode">
+      <font-awesome-icon class="icon" icon="arrow-circle-left" @click="onLeftClick" />
+      <font-awesome-icon class="icon" icon="arrow-circle-right" @click="onRightClick" />
     </span>
     <span class="menu" v-if="!editMode">
       <font-awesome-icon class="icon" icon="plus-circle" @click="onPlusClick" />
@@ -32,7 +36,18 @@ export default class TreeListItem extends Vue {
   get isOpen(): boolean {
     return this.doc.children.length === 0 || this.folded;
   }
-  private changeMode(): void {
+  get text(): string | null {
+    if (!this.doc.text) {
+      return null;
+    }
+    const text = marked(this.doc.text);
+    // Remove <p> and </p> tags from rendered text.
+    return text.substr(3, text.length - 8);
+  }
+  private toggleFolded(): void {
+    this.folded = !this.folded;
+  }
+  private toggleMode(): void {
     this.editMode = !this.editMode;
     this.$nextTick(() => {
       const input = document.getElementById('input');
@@ -47,22 +62,22 @@ export default class TreeListItem extends Vue {
         input.blur();
       }
   }
-  private toggleFolded(): void {
-    this.folded = !this.folded;
-  }
-  private text(): string | null {
-    if (!this.doc.text) {
-      return null;
-    }
-    const text = marked(this.doc.text);
-    // Remove <p> and </p> tags from rendered text.
-    return text.substr(3, text.length - 8);
-  }
+
   private onPlusClick(): void {
     this.$emit('add', this.doc);
   }
   private onMinuxClick(): void {
     this.$emit('remove', this.doc);
+  }
+  private onLeftClick(): void {
+    if (this.$parent && this.$parent.$parent && this.$parent.$parent.$parent) {
+      // Find the parent TreeListItem.
+      const parent = this.$parent.$parent.$parent;
+      parent.$emit('up', this.doc,  parent.$props.doc);
+    }
+  }
+  private onRightClick(): void {
+    this.$emit('down', this.doc);
   }
 }
 </script>
