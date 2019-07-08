@@ -39,6 +39,9 @@ npm run build:app
 
 # build lib for production
 npm run build:lib
+
+# build Web Components for production
+npm run build:wc
 ```
 
 ## Library dependencies
