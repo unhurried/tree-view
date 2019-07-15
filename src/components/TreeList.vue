@@ -1,6 +1,6 @@
 <template>
-  <draggable tag="ul" class="dragArea" :list="doc" :group="{ name: 'g1' }" :class="{ root: level === 0 }">
-    <TreeListItem v-for="item in doc" :key="item._uid" :doc="item" :level="level"
+  <draggable tag="ul" class="dragArea fa-ul" :list="doc" :group="{ name: 'g1' }">
+    <TreeListItem v-for="item in doc" :key="item._uid" :doc="item"
      @up="onUp" @down="onDown" @add="onAdd" @remove="onRemove" />
   </draggable>
 </template>
@@ -20,7 +20,6 @@ import { ListItem } from '@/lib/ListData';
 })
 export default class TreeList extends Vue {
   @Prop({ default: null }) private doc!: ListItem[];
-  @Prop({ default: 0 }) private level!: number;
 
   private onUp(child: ListItem, parent: ListItem): void {
     const parentIndex = this.doc.indexOf(parent);
@@ -52,14 +51,4 @@ export default class TreeList extends Vue {
 </script>
 
 <style scoped lang="scss">
-ul {
-  list-style: none;
-}
-ul.root {
-  margin: 0;
-  padding: 0;
-}
-.dragArea {
-  padding-bottom: 0.1em;
-}
 </style>
