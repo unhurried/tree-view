@@ -1,14 +1,12 @@
 <template>
   <li class="tree-list-item">
     <span @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
-      <span @click="toggleFolded()">
+      <span @click="toggleFolded()" class="fa-li">
         <font-awesome-icon icon="minus" v-if="isOpen" />
         <font-awesome-icon icon="plus" v-else />
       </span>
-      <span class="text">
-        <span v-if="!editMode" v-html="text" @dblclick="toggleMode" />
-        <input v-else id="input" v-model="doc.text" @blur="toggleMode" @keyup.enter="onKeyEnter" >
-      </span>
+      <span v-if="!editMode" v-html="text" @dblclick="toggleMode" />
+      <input v-else id="input" v-model="doc.text" @blur="toggleMode" @keyup.enter="onKeyEnter" >
       <span class="menu" v-if="!editMode && displayMenu">
         <font-awesome-icon class="icon" icon="arrow-circle-left" @click="onLeftClick" />
         <font-awesome-icon class="icon" icon="arrow-circle-right" @click="onRightClick" />
@@ -18,7 +16,7 @@
         <font-awesome-icon class="icon" icon="minus-circle" @click="onMinuxClick"/>
       </span>
     </span>
-    <TreeList :class="{ invisible: !isOpen }" :doc="doc.children" :level="level+1" />
+    <TreeList :class="{ invisible: !isOpen }" :doc="doc.children" />
   </li>
 </template>
 
@@ -32,7 +30,6 @@ import marked from 'marked';
 })
 export default class TreeListItem extends Vue {
   @Prop() private doc!: ListItem;
-  @Prop() private level!: number;
   private folded: boolean = true;
   private editMode: boolean = false;
   private displayMenu: boolean = false;
@@ -99,9 +96,6 @@ li span {
 }
 .invisible {
   display: none
-}
-.text {
-  padding-left: 0.4em;
 }
 input {
   height: 1.25em;
