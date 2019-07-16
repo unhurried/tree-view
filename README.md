@@ -13,7 +13,7 @@ You can load tree-view as a library in your project through [jsdelivr.com](https
   * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.common.js
 * CSS
   * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.css
-* web Components
+* Web Components
   * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/tree-view.js
   * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/tree-view.min.js
 
