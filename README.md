@@ -2,6 +2,8 @@
 
 A Vue.js project that renders tree data structure in a markdown file into html.
 
+https://unhurried.github.io/tree-view/
+
 ## How to use as a library 
 
 You can load tree-view as a library in your project through [jsdelivr.com](https://jsdelivr.com).
@@ -17,7 +19,6 @@ You can load tree-view as a library in your project through [jsdelivr.com](https
   * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/tree-view.js
   * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/tree-view.min.js
 
-Check usage in a demo application: https://unhurried.github.io/tree-view/demo/
 
 ## How to start development
 
