@@ -1,3 +1,4 @@
 module.exports = {
-    publicPath: process.env.DEPLOY_ENV === 'github' ? '/tree-vew/' : '/'
+    publicPath: process.env.DEPLOY_ENV === 'github' ? '/tree-view/' : '/',
+    outputDir: process.env.DEPLOY_ENV === 'github' ? 'doc' : 'dist'
 }
