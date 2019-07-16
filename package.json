@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build:app": "vue-cli-service build",
+    "build:github": "cross-env DEPLOY_ENV=github vue-cli-service build",
     "build:lib": "vue-cli-service build --target lib --name treeView",
     "build:wc": "vue-cli-service build --target wc --name tree-view",
     "lint": "vue-cli-service lint",
@@ -33,6 +34,7 @@
     "@vue/cli-service": "^3.9.2",
     "@vue/test-utils": "^1.0.0-beta.29",
     "babel-core": "7.0.0-bridge.0",
+    "cross-env": "^5.2.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "ts-jest": "^24.0.2",
