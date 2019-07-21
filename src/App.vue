@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <ImportExportButton class="float-right" :doc="doc" @fileLoaded="onFileLoaded" />
-    <TreeList :doc="doc"/>
+    <TreeList class="tree-list" :doc="doc"/>
   </div>
 </template>
 
@@ -54,8 +54,11 @@ export default class App extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 div#app {
   margin: 1em;
+}
+.tree-list {
+  margin-right: 80px;
 }
 </style>
