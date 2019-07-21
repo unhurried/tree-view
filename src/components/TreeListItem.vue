@@ -5,13 +5,14 @@
         <font-awesome-icon icon="minus" v-if="isOpen" />
         <font-awesome-icon icon="plus" v-else />
       </span>
-      <span v-if="!editMode" v-html="text" @dblclick="toggleMode" />
-      <input v-else id="input" v-model="doc.text" @blur="toggleMode" @keyup.enter="onKeyEnter" >
-      <span class="menu" v-if="!editMode && displayMenu">
+      <span v-if="editMode" id="tree-list-input" contenteditable="true" v-text="textForInput" @input="onInput"
+        @blur="onBlur" @keydown.enter.prevent="blur" @keydown.esc.prevent="blur" />
+      <span v-else contenteditable="false" v-html="html" @mouseup="onFocus" />
+      <span class="menu" v-if="editMode || displayMenu">
         <font-awesome-icon class="icon" icon="arrow-circle-left" @click="onLeftClick" />
         <font-awesome-icon class="icon" icon="arrow-circle-right" @click="onRightClick" />
       </span>
-      <span class="menu" v-if="!editMode && displayMenu">
+      <span class="menu" v-if="editMode || displayMenu">
         <font-awesome-icon class="icon" icon="plus-circle" @click="onPlusClick" />
         <font-awesome-icon class="icon" icon="minus-circle" @click="onMinuxClick"/>
       </span>
@@ -33,10 +34,19 @@ export default class TreeListItem extends Vue {
   private folded: boolean = true;
   private editMode: boolean = false;
   private displayMenu: boolean = false;
+
+  // Assign a dedicated property for the input so that the input element won't be re-redendered,
+  // which results in resetting the focus point in the editting text.
+  private textForInput!: string | null;
+  // Use updated hook instead of mounted hook to cope with the update of data in Vue components.
+  private updated(): void {
+    this.textForInput = this.doc.text;
+  }
+
   get isOpen(): boolean {
     return this.doc.children.length === 0 || this.folded;
   }
-  get text(): string | null {
+  get html(): string | null {
     if (!this.doc.text) {
       return null;
     }
@@ -44,23 +54,42 @@ export default class TreeListItem extends Vue {
     // Remove <p> and </p> tags from rendered text.
     return text.substr(3, text.length - 8);
   }
+
   private toggleFolded(): void {
     this.folded = !this.folded;
   }
-  private toggleMode(): void {
-    this.editMode = !this.editMode;
+
+  private blur(): void {
+    if (document.activeElement) {
+      (document.activeElement as HTMLElement).blur();
+    }
+  }
+  private onFocus(): void {
+    this.editMode = true;
     this.$nextTick(() => {
-      const input = document.getElementById('input');
+      const input = document.getElementById('tree-list-input');
       if (input) {
         input.focus();
       }
     });
   }
-  private onKeyEnter(): void {
-      const input = document.getElementById('input');
-      if (input) {
-        input.blur();
-      }
+  private onBlur(): void {
+    this.editMode = false;
+    const input = document.getElementById('tree-list-input');
+    if (input) {
+      this.textForInput = input.innerText;
+    }
+  }
+  private onInput(): void {
+    const input = document.getElementById('tree-list-input');
+    if (input) {
+      this.doc.text = input.innerText;
+    }
+    /*
+    if (e.target) {
+      this.doc.text = (e.target as HTMLElement).innerText;
+    }
+    */
   }
 
   private onMouseEnter(): void {
@@ -94,13 +123,12 @@ li span {
   cursor: pointer;
   user-select: none;
 }
+li span:focus {
+  outline: none;
+  text-decoration: underline;
+}
 .invisible {
   display: none
-}
-input {
-  height: 1.25em;
-  width: 10em;
-  font-size: 0.9em;
 }
 .menu {
   margin-left: 0.4em;
