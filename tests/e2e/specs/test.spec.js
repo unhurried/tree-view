@@ -7,9 +7,10 @@ describe('Test', () => {
   });
   it('should hide the children when their parent is clicked', () => {
     cy.visit('/')
-    cy.get('#app > ul > li:nth-child(2) > ul > li:nth-child(1) > span:nth-child(1)').click()
+    //cy.get('#app > ul > li:nth-child(2) > ul > li:nth-child(1) > span:nth-child(1)').click()
+    cy.get('#app > ul > li:nth-child(2) > ul > li:nth-child(1) > span > span.fa-li').click()
     cy.get('#app > ul > li:nth-of-type(2) > ul > li:nth-of-type(1) > ul').should('not.visible')
-    cy.get('#app > ul > li:nth-child(2) > span:nth-child(1)').click()
+    cy.get('#app > ul > li:nth-child(2) > span > span.fa-li').click()
     cy.get('#app > ul > li:nth-of-type(2) > ul').should('not.visible')
   });
 })

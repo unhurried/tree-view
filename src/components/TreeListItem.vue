@@ -7,7 +7,7 @@
       </span>
       <span v-if="editMode" id="tree-list-input" contenteditable="true" v-text="textForInput" @input="onInput"
         @blur="onBlur" @keydown.enter.prevent="blur" @keydown.esc.prevent="blur" />
-      <span v-else contenteditable="false" v-html="html" @mouseup="onFocus" />
+      <span v-else contenteditable="false" v-html="html" @mouseup.exact="onFocus" />
       <span class="menu" v-if="editMode || displayMenu">
         <font-awesome-icon class="icon" icon="arrow-circle-left" @click="onLeftClick" />
         <font-awesome-icon class="icon" icon="arrow-circle-right" @click="onRightClick" />
