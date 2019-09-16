@@ -6,15 +6,16 @@
         <font-awesome-icon icon="plus" v-else />
       </span>
       <span v-if="editMode" id="tree-list-input" contenteditable="true" v-text="textForInput" @input="onInput"
-        @blur="onBlur" @keydown.enter.prevent="blur" @keydown.esc.prevent="blur" />
+        @blur="onBlur" @keydown.exact.enter.prevent="blur" @keydown.exact.esc.prevent="blur"
+        @keydown.ctrl.left="toLeft" @keydown.ctrl.right="toRight" />
       <span v-else contenteditable="false" v-html="html" @mouseup.exact="onFocus" />
       <span class="menu" v-if="editMode || displayMenu">
-        <font-awesome-icon class="icon" icon="arrow-circle-left" @click="onLeftClick" />
-        <font-awesome-icon class="icon" icon="arrow-circle-right" @click="onRightClick" />
+        <font-awesome-icon class="icon" icon="arrow-circle-left" @click="toLeft" />
+        <font-awesome-icon class="icon" icon="arrow-circle-right" @click="toRight" />
       </span>
       <span class="menu" v-if="editMode || displayMenu">
-        <font-awesome-icon class="icon" icon="plus-circle" @click="onPlusClick" />
-        <font-awesome-icon class="icon" icon="minus-circle" @click="onMinuxClick"/>
+        <font-awesome-icon class="icon" icon="plus-circle" @click="addItem" />
+        <font-awesome-icon class="icon" icon="minus-circle" @click="removeItem"/>
       </span>
     </span>
     <TreeList :class="{ invisible: !isOpen }" :doc="doc.children" />
@@ -99,21 +100,23 @@ export default class TreeListItem extends Vue {
     this.displayMenu = false;
   }
 
-  private onPlusClick(): void {
+  private addItem(): void {
     this.$emit('add', this.doc);
   }
-  private onMinuxClick(): void {
+  private removeItem(): void {
     this.$emit('remove', this.doc);
   }
-  private onLeftClick(): void {
+  private toLeft(): void {
+    this.blur();
     if (this.$parent && this.$parent.$parent && this.$parent.$parent.$parent) {
       // Find the parent TreeListItem.
       const parent = this.$parent.$parent.$parent;
-      parent.$emit('up', this.doc,  parent.$props.doc);
+      parent.$emit('left', this.doc,  parent.$props.doc);
     }
   }
-  private onRightClick(): void {
-    this.$emit('down', this.doc);
+  private toRight(): void {
+    this.blur();
+    this.$emit('right', this.doc);
   }
 }
 </script>
