@@ -9,15 +9,15 @@ https://unhurried.github.io/tree-view/
 You can load tree-view as a library in your project through [jsdelivr.com](https://jsdelivr.com).
 
 * UMD
-  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.umd.js
-  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.umd.min.js
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/lib/treeView.umd.js
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/lib/treeView.umd.min.js
 * CommonJS
-  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.common.js
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/lib/treeView.common.js
 * CSS
-  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/treeView.css
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/lib/treeView.css
 * Web Components
-  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/tree-view.js
-  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/tree-view.min.js
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/wc/tree-view.js
+  * https://cdn.jsdelivr.net/gh/unhurried/tree-view/dist/wc/tree-view.min.js
 
 
 ## How to start development
